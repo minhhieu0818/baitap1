@@ -1,0 +1,109 @@
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+# BAI 1: Tinh x^y
+def power(x, y):
+    return x ** y
+
+# BAI 2: Tinh giai thua n!
+def factorial(n):
+    if n == 0 or n == 1:
+        return 1
+    return n * factorial(n - 1)
+
+# BAI 3: Tinh so Fibonacci thu n
+def fibonacci(n):
+    if n <= 1:
+        return n
+    return fibonacci(n - 1) + fibonacci(n - 2)
+
+# BAI 4: Ham xu ly ma tran
+def nhap_ma_tran(n, m):
+    return [[int(input(f"Nhap [{i}][{j}]: ")) for j in range(m)] for i in range(n)]
+
+def cong_ma_tran(A, B):
+    return [[A[i][j] + B[i][j] for j in range(len(A[0]))] for i in range(len(A))]
+
+def tich_ma_tran(A, B):
+    n, m, p = len(A), len(B), len(B[0])
+    return [[sum(A[i][k] * B[k][j] for k in range(m)) for j in range(p)] for i in range(n)]
+
+# BAI 5: Doi he so sang co so 2, 8, 16
+def doi_he(n, co_so):
+    if n == 0:
+        return "0"
+    digits = []
+    while n > 0:
+        remainder = n % co_so
+        if co_so == 16 and remainder >= 10:
+            digits.append(chr(ord('A') + remainder - 10))
+        else:
+            digits.append(str(remainder))
+        n //= co_so
+    return ''.join(reversed(digits))
+
+# BAI 6: Tinh tong hai da thuc va tinh gia tri da thuc theo x
+
+def nhap_da_thuc(n):
+    return [int(input(f"He so bac {i}: ")) for i in range(n + 1)]
+
+def tinh_gia_tri(da_thuc, x):
+    return sum(hs * (x ** i) for i, hs in enumerate(da_thuc))
+
+def tong_da_thuc(p, q):
+    max_len = max(len(p), len(q))
+    p += [0] * (max_len - len(p))
+    q += [0] * (max_len - len(q))
+    return [p[i] + q[i] for i in range(max_len)]
