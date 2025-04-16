@@ -1,0 +1,58 @@
+#include <stdio.h>
+#include <math.h>
+
+// Bai 1
+void bai1() {
+    float x;
+    printf("Nhap gia tri x: ");
+    scanf("%f", &x);
+    printf("x^2 = %.2f\n", pow(x, 2));
+    printf("x^3 = %.2f\n", pow(x, 3));
+    printf("x^4 = %.2f\n", pow(x, 4));
+}
+
+// Bai 2
+void bai2() {
+    int day, month, year;
+    printf("Nhap ngay: ");
+    scanf("%d", &day);
+    printf("Nhap thang: ");
+    scanf("%d", &month);
+    printf("Nhap nam: ");
+    scanf("%d", &year);
+    printf("Ngay ban vua nhap: %02d/%02d/%d\n", day, month, year);
+}
+
+// Bai 3
+void bai3() {
+    int a, b;
+    printf("Nhap 2 so nguyen: ");
+    scanf("%d%d", &a, &b);
+    printf("%d + %d = %d\n", a, b, a + b);
+    printf("%d - %d = %d\n", a, b, a - b);
+    printf("%d * %d = %d\n", a, b, a * b);
+    if (b != 0)
+        printf("%d / %d = %d\n", a, b, a / b);
+    else
+        printf("Khong the chia cho 0\n");
+}
+
+// Bai 4
+void bai4() {
+    float r;
+    const float PI = 3.14159;
+    printf("Nhap ban kinh hinh cau: ");
+    scanf("%f", &r);
+    float dienTich = 4 * PI * r * r;
+    float theTich = (4.0 / 3) * PI * r * r * r;
+    printf("Dien tich hinh cau = %.2f\n", dienTich);
+    printf("The tich hinh cau = %.2f\n", theTich);
+}
+
+int main() {
+    bai1();
+    bai2();
+    bai3();
+    bai4();
+    return 0;
+}
