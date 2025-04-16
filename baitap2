@@ -1,0 +1,80 @@
+# Bài 5: Giải phương trình bậc hai
+import math
+
+def giai_pt_bac_hai(a, b, c):
+    if a == 0:
+        if b == 0:
+            return "Phương trình vô nghiệm" if c != 0 else "Phương trình vô số nghiệm"
+        else:
+            return f"Phương trình có một nghiệm: x = {-c / b}"
+    delta = b**2 - 4*a*c
+    if delta < 0:
+        return "Phương trình vô nghiệm"
+    elif delta == 0:
+        x = -b / (2*a)
+        return f"Phương trình có nghiệm kép: x = {x}"
+    else:
+        x1 = (-b + math.sqrt(delta)) / (2*a)
+        x2 = (-b - math.sqrt(delta)) / (2*a)
+        return f"Phương trình có hai nghiệm: x1 = {x1}, x2 = {x2}"
+
+# Bài 6: Giải hệ phương trình tuyến tính bậc nhất hai ẩn
+def giai_he_pt(a, b, c, d, e, f):
+    D = a*e - b*d
+    Dx = c*e - b*f
+    Dy = a*f - c*d
+    if D != 0:
+        x = Dx / D
+        y = Dy / D
+        return f"Hệ phương trình có nghiệm duy nhất: x = {x}, y = {y}"
+    elif Dx == 0 and Dy == 0:
+        return "Hệ phương trình có vô số nghiệm"
+    else:
+        return "Hệ phương trình vô nghiệm"
+
+# Bài 7: Xếp loại điểm
+
+def xep_loai(dtb):
+    if dtb < 5:
+        return "Yếu"
+    elif dtb < 7:
+        return "Trung bình"
+    elif dtb < 8:
+        return "Khá"
+    elif dtb < 9:
+        return "Giỏi"
+    else:
+        return "Xuất sắc"
+
+# Bài 8: Kiểm tra tam giác, tính chu vi và diện tích
+
+def tam_giac(a, b, c):
+    if a + b > c and a + c > b and b + c > a:
+        loai = ""
+        if a == b == c:
+            loai = "đều"
+        elif a == b or b == c or a == c:
+            loai = "cân"
+        elif a**2 + b**2 == c**2 or a**2 + c**2 == b**2 or b**2 + c**2 == a**2:
+            loai = "vuông"
+        else:
+            loai = "thường"
+        p = (a + b + c) / 2
+        s = math.sqrt(p * (p - a) * (p - b) * (p - c))
+        return f"Tam giác {loai}, chu vi = {a+b+c}, diện tích = {s}"
+    else:
+        return "Ba cạnh không tạo thành tam giác"
+
+# Bài 9: Kiểm tra số ngày trong tháng
+def so_ngay_trong_thang(thang, nam):
+    if thang in [1, 3, 5, 7, 8, 10, 12]:
+        return f"Tháng {thang} năm {nam} có 31 ngày"
+    elif thang in [4, 6, 9, 11]:
+        return f"Tháng {thang} năm {nam} có 30 ngày"
+    elif thang == 2:
+        if (nam % 4 == 0 and nam % 100 != 0) or (nam % 400 == 0):
+            return f"Tháng 2 năm {nam} có 29 ngày"
+        else:
+            return f"Tháng 2 năm {nam} có 28 ngày"
+    else:
+        return "Tháng không hợp lệ"
