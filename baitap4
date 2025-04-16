@@ -1,0 +1,78 @@
+# BAI 1: KHAI BAO MANG VA IN
+
+# TH1: Khai bao truc tiep
+matrix1 = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+
+print("Ma tran khai bao truc tiep:")
+for row in matrix1:
+    print(row)
+
+# TH2: Nhap tu ban phim
+print("\nNhap ma tran 3x3 tu ban phim:")
+matrix2 = []
+for i in range(3):
+    row = list(map(int, input(f"Nhap hang {i+1} (cach nhau bang dau cach): ").split()))
+    matrix2.append(row)
+
+print("Ma tran vua nhap:")
+for row in matrix2:
+    print(row)
+
+# BAI 2: TINH TONG MA TRAN
+sum_matrix = sum(sum(row) for row in matrix2)
+print("\nTong cua ma tran la:", sum_matrix)
+
+# BAI 3: TICH HAI MA TRAN
+A = [[1,2,3],[4,5,6],[7,8,9]]
+B = [[9,8,7],[6,5,4],[3,2,1]]
+C = [[0]*3 for _ in range(3)]
+
+for i in range(3):
+    for j in range(3):
+        for k in range(3):
+            C[i][j] += A[i][k] * B[k][j]
+
+print("\nMa tran tich C:")
+for row in C:
+    print(row)
+
+# BAI 4: MA TRAN XOAN OC
+def spiral_matrix(n):
+    a = [[0]*n for _ in range(n)]
+    val = 1
+    top, left = 0, 0
+    bottom, right = n - 1, n - 1
+
+    while val <= n*n:
+        for i in range(left, right+1):
+            a[top][i] = val
+            val += 1
+        top += 1
+
+        for i in range(top, bottom+1):
+            a[i][right] = val
+            val += 1
+        right -= 1
+
+        for i in range(right, left-1, -1):
+            a[bottom][i] = val
+            val += 1
+        bottom -= 1
+
+        for i in range(bottom, top-1, -1):
+            a[i][left] = val
+            val += 1
+        left += 1
+
+    return a
+
+n = int(input("\nNhap n: "))
+spiral = spiral_matrix(n)
+
+print("Ma tran xoan oc:")
+for row in spiral:
+    print(*row)
