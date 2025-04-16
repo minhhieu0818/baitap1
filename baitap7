@@ -1,0 +1,141 @@
+// BAI 1: QUAN LY BAN HANG
+#include <stdio.h>
+#include <string.h>
+
+struct MatHang {
+    char ten[30];
+    int dongia;
+    int soluong;
+    int thanhtien;
+};
+
+void sapXepTheoTen(struct MatHang a[], int n) {
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = i + 1; j < n; j++) {
+            if (strcmp(a[i].ten, a[j].ten) > 0) {
+                struct MatHang tmp = a[i];
+                a[i] = a[j];
+                a[j] = tmp;
+            }
+        }
+    }
+}
+
+int main1() {
+    int n;
+    printf("Nhap so mat hang: ");
+    scanf("%d", &n);
+    struct MatHang mh[n];
+
+    for (int i = 0; i < n; i++) {
+        printf("Nhap thong tin mat hang %d:\n", i + 1);
+        printf("Ten hang: ");
+        scanf("%s", mh[i].ten);
+        printf("Don gia: ");
+        scanf("%d", &mh[i].dongia);
+        printf("So luong: ");
+        scanf("%d", &mh[i].soluong);
+        mh[i].thanhtien = mh[i].dongia * mh[i].soluong;
+    }
+
+    sapXepTheoTen(mh, n);
+
+    int tong = 0;
+    printf("\nSO LIEU BAN HANG\n");
+    printf("%-5s %-10s %-8s %-10s %-10s\n", "STT", "Ten Hang", "Don gia", "So luong", "Thanh tien");
+
+    for (int i = 0; i < n; i++) {
+        printf("%-5d %-10s %-8d %-10d %-10d\n", i + 1, mh[i].ten, mh[i].dongia, mh[i].soluong, mh[i].thanhtien);
+        tong += mh[i].thanhtien;
+    }
+
+    printf("Tong tien: %d\n", tong);
+    return 0;
+}
+
+// BAI 2: DANH SACH LIEN KET SINH VIEN
+#include <stdlib.h>
+
+struct SinhVien {
+    char hoten[50];
+    int tuoi;
+    float diemTB;
+    struct SinhVien* next;
+};
+
+typedef struct SinhVien* Node;
+
+Node taoNode(char ten[], int tuoi, float diem) {
+    Node p = (Node)malloc(sizeof(struct SinhVien));
+    strcpy(p->hoten, ten);
+    p->tuoi = tuoi;
+    p->diemTB = diem;
+    p->next = NULL;
+    return p;
+}
+
+void chenTruoc(Node* head, char tenMoi[], int tuoi, float diem, char tenChenTruoc[]) {
+    Node p = taoNode(tenMoi, tuoi, diem);
+
+    if (*head == NULL || strcmp((*head)->hoten, tenChenTruoc) == 0) {
+        p->next = *head;
+        *head = p;
+        return;
+    }
+
+    Node prev = *head;
+    Node curr = (*head)->next;
+    while (curr != NULL && strcmp(curr->hoten, tenChenTruoc) != 0) {
+        prev = curr;
+        curr = curr->next;
+    }
+
+    p->next = curr;
+    prev->next = p;
+}
+
+void loaiBo(Node* head, char tenXoa[]) {
+    while (*head != NULL && strcmp((*head)->hoten, tenXoa) == 0) {
+        Node temp = *head;
+        *head = (*head)->next;
+        free(temp);
+    }
+
+    Node curr = *head;
+    while (curr != NULL && curr->next != NULL) {
+        if (strcmp(curr->next->hoten, tenXoa) == 0) {
+            Node temp = curr->next;
+            curr->next = curr->next->next;
+            free(temp);
+        } else {
+            curr = curr->next;
+        }
+    }
+}
+
+void inDanhSach(Node head) {
+    printf("\nDANH SACH SINH VIEN:\n");
+    printf("%-5s %-20s %-10s %-10s\n", "STT", "Ho ten", "Tuoi", "Diem TB");
+    int stt = 1;
+    while (head != NULL) {
+        printf("%-5d %-20s %-10d %-10.2f\n", stt++, head->hoten, head->tuoi, head->diemTB);
+        head = head->next;
+    }
+}
+
+int main2() {
+    Node head = NULL;
+
+    chenTruoc(&head, "An", 20, 7.5, "");
+    chenTruoc(&head, "Binh", 22, 8.2, "");
+    chenTruoc(&head, "Cuong", 21, 9.0, "Binh");
+
+    inDanhSach(head);
+
+    printf("\nXoa sinh vien ten 'An'...\n");
+    loaiBo(&head, "An");
+
+    inDanhSach(head);
+
+    return 0;
+}
