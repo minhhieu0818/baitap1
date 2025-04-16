@@ -1,0 +1,82 @@
+// Bài 1: Hoán đổi giá trị a và b sử dụng con trỏ
+#include <stdio.h>
+
+void hoanDoi(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+int main_bai1() {
+    int a = 5, b = 10;
+    printf("Trước khi hoán đổi: a = %d, b = %d\n", a, b);
+    hoanDoi(&a, &b);
+    printf("Sau khi hoán đổi: a = %d, b = %d\n", a, b);
+    return 0;
+}
+
+// Bài 2: Khai báo mảng số nguyên có 10 phần tử. In mảng đó ra màn hình theo hàng ngang
+int main_bai2() {
+    int arr[10] = {1, 4, 7, 2, 9, 5, 3, 8, 6, 0};
+    int *ptr = arr;
+
+    printf("Mảng theo hàng ngang: ");
+    for (int i = 0; i < 10; i++) {
+        printf("%d ", *(ptr + i));
+    }
+
+    return 0;
+}
+
+// Bài 3: Tìm phần tử có giá trị nhỏ nhất và lớn nhất trong mảng một chiều
+int main_bai3() {
+    int arr[10] = {4, 7, 1, 9, 0, 3, 6, 2, 8, 5};
+    int *ptr = arr;
+    int min = *ptr, max = *ptr;
+
+    for (int i = 1; i < 10; i++) {
+        if (*(ptr + i) < min)
+            min = *(ptr + i);
+        if (*(ptr + i) > max)
+            max = *(ptr + i);
+    }
+
+    printf("Giá trị nhỏ nhất: %d\n", min);
+    printf("Giá trị lớn nhất: %d\n", max);
+
+    return 0;
+}
+
+// Bài 4: Nhập vào một mảng bất kỳ. Sắp xếp mảng đó theo thứ tự tăng dần
+void swap(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+int main_bai4() {
+    int n;
+    printf("Nhập số phần tử của mảng: ");
+    scanf("%d", &n);
+
+    int arr[n];
+    printf("Nhập các phần tử:\n");
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = i + 1; j < n; j++) {
+            if (*(arr + i) > *(arr + j)) {
+                swap((arr + i), (arr + j));
+            }
+        }
+    }
+
+    printf("Mảng sau khi sắp xếp: ");
+    for (int i = 0; i < n; i++) {
+        printf("%d ", *(arr + i));
+    }
+
+    return 0;
+}
